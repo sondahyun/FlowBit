@@ -1,20 +1,72 @@
 package com.example.flowbit
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.flowbit.databinding.ActivityMainBinding
+import com.example.flowbit.ui.home.HomeFragment
+import com.example.flowbit.ui.calendar.CalendarFragment
+import com.example.flowbit.ui.exchange.MoneyFragment
+import com.example.flowbit.ui.map.MapFragment
 
 class MainActivity : AppCompatActivity() {
+
+    private val binding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        setContentView(binding.root)
+
+        val navigateTo = intent.getStringExtra("navigate_to")
+
+        if (navigateTo == "HomeFragment") {
+            showHomeFragment()
+        } else if (savedInstanceState == null) {
+            binding.bottomNavigationView.selectedItemId = R.id.fragment_home
+            showHomeFragment()
+        }
+
+        setBottomNavigationView()
+    }
+
+    private fun showHomeFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, HomeFragment())
+            .commit()
+    }
+
+    private fun setBottomNavigationView() {
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.fragment_home -> {
+                    showHomeFragment()
+                    true
+                }
+
+                R.id.fragment_calendar -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_container, CalendarFragment())
+                        .commit()
+                    true
+                }
+
+                R.id.fragment_money -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_container, MoneyFragment())
+                        .commit()
+                    true
+                }
+
+                R.id.fragment_map -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_container, MapFragment())
+                        .commit()
+                    true
+                }
+
+                else -> false
+            }
         }
     }
 }
