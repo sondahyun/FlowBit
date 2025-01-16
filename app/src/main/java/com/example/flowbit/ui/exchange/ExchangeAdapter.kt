@@ -21,8 +21,12 @@ class ExchangeAdapter(private var exchanges: List<Exchange>) :
             binding.currencyName.text = exchange.cryptoName
             binding.countryName.text = "${exchange.cryptoSymbol} / ${exchange.blockchainName}"
 
-            // 가격(₩) 설정
-            binding.exchangeRate.text = "₩${String.format("%,f", exchange.won)}"
+            // 가격(₩) 설정: 1보다 작으면 소수점 6자리, 1 이상이면 소수점 제거
+            binding.exchangeRate.text = if (exchange.won < 1) {
+                "₩${String.format("%,.6f", exchange.won)}"
+            } else {
+                "₩${String.format("%,d", exchange.won.toLong())}"
+            }
 
             // 변동률 설정 (양수는 초록색, 음수는 빨간색)
             binding.changePercent.apply {
