@@ -1,12 +1,15 @@
 package com.example.flowbit.ui.exchange
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.flowbit.data.network.Exchange
+import com.example.flowbit.data.network.ExchangeList
 import com.example.flowbit.data.repository.ExchangeRepository
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 
 
 class ExchangeViewModel (val exchangeRepository: ExchangeRepository) : ViewModel() {
@@ -33,18 +36,20 @@ class ExchangeViewModel (val exchangeRepository: ExchangeRepository) : ViewModel
     private var _exchanges = MutableLiveData<List<Exchange>?>()
     val exchanges = _exchanges
 
-    fun getExchanges(authkey: String, searchdate: String, data: String) = viewModelScope.launch {
+    // 유니와플에서 지원하는 코인의 정보 및 현재가 가지고 오는 API
+    fun getExchanges() = viewModelScope.launch {
         try {
-            Log.d("MoneyFragment", "ExchangeViewModel 입장 성공")
-            val result = exchangeRepository.getExchanges(authkey, searchdate, data)
-            if (result != null) {
+            Log.d("ExchangeFragment", "ExchangeViewModel: 데이터 요청 시작")
+            val result = exchangeRepository.getExchanges()
+            if (!result.isNullOrEmpty()) {
                 _exchanges.value = result
-                Log.d("MoneyFragment", "환율 정보 불러오기 성공: ${result.size}개의 데이터")
+                Log.d("ExchangeFragment", "크립토 환율 정보 불러오기 성공: ${result.size}개의 데이터")
             } else {
-                _exchanges.value = emptyList() // 빈 리스트 설정
+                _exchanges.value = emptyList()
+                Log.e("ExchangeFragment", "데이터가 비어있습니다.")
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e("ExchangeFragment", "예기치 못한 오류 발생: ${e.message}")
             _exchanges.value = emptyList()
         }
     }

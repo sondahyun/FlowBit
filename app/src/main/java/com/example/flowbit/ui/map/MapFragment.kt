@@ -75,7 +75,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         inflater: android.view.LayoutInflater,
         container: android.view.ViewGroup?,
         savedInstanceState: Bundle?
-    ): android.view.View? {
+    ): android.view.View {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
 
         // 지도 초기화

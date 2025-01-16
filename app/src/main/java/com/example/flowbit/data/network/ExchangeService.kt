@@ -20,7 +20,7 @@ class ExchangeService (val context: Context) {
 
     init {
         val retrofit : Retrofit = Retrofit.Builder()
-            .baseUrl(context.resources.getString(R.string.url)) // url 입력
+            .baseUrl("https://bsp.ltcwareko.com/") // url 입력
             .addConverterFactory(GsonConverterFactory.create()) // 가져온 json을 DTO로 parsing -> converter 이용해서 변환 -> gson 이용
             .build()
 
@@ -34,7 +34,7 @@ class ExchangeService (val context: Context) {
 
 
     // suspend는 suspend안에서만 실행 가능함
-    suspend fun getExchanges(authkey: String, searchdate: String, data: String)  : List<Exchange> {
+    suspend fun getExchanges()  : ExchangeResponse {
 //        // 응답이 날아왔을 때 호출 (결과 받음), Call 타입으로 반환 날아오면 CallBack 호출
 //        val movieCallback = object : Callback<Root> { // 객체
 //            // 서버로부터 응답 제대로 날아옴 (성공)
@@ -64,7 +64,8 @@ class ExchangeService (val context: Context) {
         // suspend 함수 호출
         Log.d("MoneyFragment", "ExchangeService 입장 성공")
 
-        val root : List<Exchange> = exchangeService.getExchanges(authkey, searchdate, data)
+        val root : ExchangeResponse = exchangeService.getExchanges()
+        Log.d("MoneyFragment", "ExchangeService finish")
         return root
 
         // return null // response.body()?.boxOfficeResult?.boxOfficeList

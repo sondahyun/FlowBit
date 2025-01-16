@@ -4,7 +4,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.flowbit.R
 import com.example.flowbit.data.network.Exchange
+import com.example.flowbit.data.network.ExchangeList
 import com.example.flowbit.databinding.ItemExchangeRateBinding
 
 class ExchangeAdapter(private var exchanges: List<Exchange>) :
@@ -14,9 +17,32 @@ class ExchangeAdapter(private var exchanges: List<Exchange>) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(exchange: Exchange) {
-            binding.currencyName.text = exchange.curUnit
-            binding.countryName.text = exchange.curNm
-            binding.exchangeRate.text = "매매 기준율: ${exchange.dealBasR}"
+            // 암호화폐 이름 및 심볼 설정
+            binding.currencyName.text = exchange.cryptoName
+            binding.countryName.text = "${exchange.cryptoSymbol} / ${exchange.blockchainName}"
+
+            // 가격(₩) 설정
+            binding.exchangeRate.text = "₩${String.format("%,f", exchange.won)}"
+
+            // 변동률 설정 (양수는 초록색, 음수는 빨간색)
+            binding.changePercent.apply {
+                text = "${String.format("%.2f", exchange.rate)}%"
+                setTextColor(
+                    if (exchange.rate > 0) binding.root.context.getColor(R.color.green)
+                    else binding.root.context.getColor(R.color.red)
+                )
+                setCompoundDrawablesWithIntrinsicBounds(
+                    if (exchange.rate > 0) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down,
+                    0, 0, 0
+                )
+            }
+
+            // 암호화폐 아이콘 로드
+            Glide.with(binding.cryptoIcon.context)
+                .load(exchange.cryptoIcon)
+                .placeholder(R.drawable.placeholder_icon) // 로딩 중 표시할 기본 이미지
+                .error(R.drawable.error_icon) // 로드 실패 시 표시할 이미지
+                .into(binding.cryptoIcon)
         }
     }
 
@@ -35,12 +61,8 @@ class ExchangeAdapter(private var exchanges: List<Exchange>) :
 
     override fun getItemCount(): Int = exchanges.size
 
-    // 데이터 업데이트 메서드
     fun updateData(newExchanges: List<Exchange>) {
         exchanges = newExchanges
-        if (newExchanges.isEmpty()) {
-            Log.d("ExchangeAdapter", "No data available")
-        }
         notifyDataSetChanged()
     }
 }
