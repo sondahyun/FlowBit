@@ -2,35 +2,14 @@ package com.example.flowbit.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.flowbit.FlowBitApplication
 import com.example.flowbit.databinding.FragmentHomeBinding
-import com.example.flowbit.ui.expense.ExpenseViewModel
-import com.example.flowbit.ui.expense.ExpenseViewModelFactory
-import com.example.flowbit.ui.income.IncomeViewModel
-import com.example.flowbit.ui.income.IncomeViewModelFactory
-import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var adapter: TransactionAdapter
-
-    private val incomeViewModel: IncomeViewModel by viewModels {
-        IncomeViewModelFactory((requireActivity().application as FlowBitApplication).incomeRepository)
-    }
-
-    private val expenseViewModel: ExpenseViewModel by viewModels {
-        ExpenseViewModelFactory((requireActivity().application as FlowBitApplication).expenseRepository)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,73 +17,91 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        // RecyclerView 설정
-        adapter = TransactionAdapter(emptyList())
-        binding.todayList.layoutManager = LinearLayoutManager(requireContext())
-        binding.todayList.adapter = adapter
+        // 버튼 클릭 이벤트 설정
+        setupButtons()
 
-        // 오늘 날짜 가져오기
-        val todayDate = getTodayDate()
-
-        // UI에 오늘 날짜 설정
-        setTodayDateUI(todayDate)
-
-        // 오늘의 수익 및 지출 계산
-        calculateTodayIncomeAndExpense(todayDate)
-
-        // 오늘의 거래 데이터 로드 및 정렬
-        loadTransactions(todayDate)
-
-        // 추가 버튼 클릭 이벤트
-        binding.addButton.setOnClickListener {
-            val intent = Intent(requireContext(), AddTransactionActivity::class.java)
-            startActivity(intent)
-        }
+        // 탭 전환 기능 설정
+        setupTabs()
 
         return binding.root
     }
 
-    private fun setTodayDateUI(todayDate: String) {
-        val calendar = Calendar.getInstance()
-        binding.calMonth.text = "${calendar.get(Calendar.MONTH) + 1}월"
-        binding.calDay.text = "${calendar.get(Calendar.DAY_OF_MONTH)}"
-    }
-
-    private fun calculateTodayIncomeAndExpense(date: String) {
-        incomeViewModel.getTotalIncomeByDate(date).observe(viewLifecycleOwner) { totalIncome ->
-            val formattedIncome = "₩${totalIncome ?: 0}"
-            binding.todayIncome.text = formattedIncome
-            Log.d("HomeFragment", "Total Income: $formattedIncome")
+    private fun setupButtons() {
+        // 받기 버튼
+        binding.receiveButton.setOnClickListener {
+            startActivity(Intent(requireContext(), ReceiveActivity::class.java))
         }
 
-        expenseViewModel.getTotalExpenseByDate(date).observe(viewLifecycleOwner) { totalExpense ->
-            val formattedExpense = "₩${totalExpense ?: 0}"
-            binding.todayExpense.text = formattedExpense
-            Log.d("HomeFragment", "Total Expense: $formattedExpense")
+        // 보내기 버튼
+        binding.sendButton.setOnClickListener {
+            startActivity(Intent(requireContext(), SendActivity::class.java))
+        }
+
+        // 스테이킹 버튼
+        binding.stakingButton.setOnClickListener {
+            startActivity(Intent(requireContext(), StakingActivity::class.java))
+        }
+
+        // 스왑 버튼
+        binding.swapButton.setOnClickListener {
+            startActivity(Intent(requireContext(), SwapActivity::class.java))
         }
     }
 
-    private fun loadTransactions(date: String) {
-        incomeViewModel.getIncomesByDate(date).observe(viewLifecycleOwner) { incomes ->
-            expenseViewModel.getExpensesByDate(date).observe(viewLifecycleOwner) { expenses ->
-                // Log로 데이터 확인
-                Log.d("HomeFragment", "Incomes: $incomes")
-                Log.d("HomeFragment", "Expenses: $expenses")
-
-                // TransactionItem 리스트 생성 및 날짜 순 정렬
-                val transactionItems = (incomes.map { TransactionItem.IncomeItem(it) } +
-                        expenses.map { TransactionItem.ExpenseItem(it) })
-                    .sortedByDescending { it.date }
-
-                // RecyclerView 데이터 갱신
-                adapter = TransactionAdapter(transactionItems)
-                binding.todayList.adapter = adapter
+    private fun setupTabs() {
+        binding.tabLayout.addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab?) {
+                when (tab?.text) {
+                    "크립토" -> loadCryptoData()
+                    "NFT" -> loadNftData()
+                }
             }
+
+            override fun onTabUnselected(tab: com.google.android.material.tabs.TabLayout.Tab?) {}
+            override fun onTabReselected(tab: com.google.android.material.tabs.TabLayout.Tab?) {}
+        })
+    }
+
+    private fun loadCryptoData() {
+        val cryptoList = fetchCryptoList()
+        if (cryptoList.isEmpty()) {
+            showEmptyState("크립토가 존재하지 않아요!")
+        } else {
+            hideEmptyState()
+            // 크립토 데이터를 RecyclerView에 갱신 (여기서 Adapter 사용)
+            // 예: adapter.updateData(cryptoList)
         }
     }
 
-    private fun getTodayDate(): String {
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        return sdf.format(Date())
+    private fun loadNftData() {
+        val nftList = fetchNftList()
+        if (nftList.isEmpty()) {
+            showEmptyState("NFT가 존재하지 않아요!")
+        } else {
+            hideEmptyState()
+            // NFT 데이터를 RecyclerView에 갱신 (여기서 Adapter 사용)
+            // 예: adapter.updateData(nftList)
+        }
+    }
+
+    private fun showEmptyState(message: String) {
+        binding.emptyStateIcon.visibility = View.VISIBLE
+        binding.emptyStateText.text = message
+        binding.emptyStateText.visibility = View.VISIBLE
+    }
+
+    private fun hideEmptyState() {
+        binding.emptyStateIcon.visibility = View.GONE
+        binding.emptyStateText.visibility = View.GONE
+    }
+
+    private fun fetchCryptoList(): List<String> {
+        // 크립토 데이터를 가져오는 로직 (현재는 더미 데이터)
+        return emptyList() // 빈 리스트로 설정 (데이터가 없을 때)
+    }
+
+    private fun fetchNftList(): List<String> {
+        // NFT 데이터를 가져오는 로직 (현재는 더미 데이터)
+        return emptyList() // 빈 리스트로 설정 (데이터가 없을 때)
     }
 }

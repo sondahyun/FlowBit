@@ -36,6 +36,24 @@
             </intent-filter>
         </activity>
 
+        <!-- AddTransactionActivity 등록 -->
+        <activity
+            android:name=".ui.home.AddListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.home.ReceiveActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.home.SendActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.home.StakingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.home.SwapActivity"
+            android:exported="true" />
+
+
     </application>
 
 </manifest>

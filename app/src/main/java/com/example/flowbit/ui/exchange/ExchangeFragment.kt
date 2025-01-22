@@ -39,17 +39,6 @@ class MoneyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        // 초기 날짜 설정
-//        val initialDisplayDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-//        binding.selectedDate.text = initialDisplayDate // 사용자 친화적인 포맷
-//
-//        Log.d("MoneyFragment", "초기 날짜 설정: $selectedDate (표시용: $initialDisplayDate)")
-//
-//        // 날짜 선택 버튼 클릭 리스너
-//        binding.datePickerButton.setOnClickListener {
-//            showDatePickerDialog()
-//        }
-
         // RecyclerView 초기화
         binding.exchangeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         exchangeAdapter = ExchangeAdapter(emptyList())
@@ -59,34 +48,8 @@ class MoneyFragment : Fragment() {
         fetchExchangeRates()
     }
 
-//    private fun showDatePickerDialog() {
-//        val calendar = Calendar.getInstance()
-//        val year = calendar.get(Calendar.YEAR)
-//        val month = calendar.get(Calendar.MONTH)
-//        val day = calendar.get(Calendar.DAY_OF_MONTH)
-//
-//        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-//            val formattedDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay)
-//
-//            // API 요청 형식: yyyyMMdd
-//            selectedDate = formattedDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"))
-//
-//            // 사용자에게 표시할 형식: yyyy-MM-dd
-//            binding.selectedDate.text = formattedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-//
-//            Log.d("MoneyFragment", "사용자가 선택한 날짜: $selectedDate")
-//
-//            // 선택된 날짜로 데이터 다시 가져오기
-//            fetchExchangeRates()
-//        }, year, month, day)
-//
-//        datePickerDialog.show()
-//    }
 
     private fun fetchExchangeRates() {
-//        val authKey = getString(R.string.authkey) // strings.xml에서 authkey 가져오기
-//        val data = "AP01" // 환율 데이터 타입
-
         Log.d("ExchangeFragment", "크립토 환율 정보 요청")
 
         exchangeViewModel.getExchanges()

@@ -1,5 +1,6 @@
 package com.example.flowbit.ui.calendar
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +13,7 @@ import com.example.flowbit.FlowBitApplication
 import com.example.flowbit.databinding.FragmentCalendarBinding
 import com.example.flowbit.ui.expense.ExpenseViewModel
 import com.example.flowbit.ui.expense.ExpenseViewModelFactory
-import com.example.flowbit.ui.home.TransactionAdapter
-import com.example.flowbit.ui.home.TransactionItem
+import com.example.flowbit.ui.home.AddListActivity
 import com.example.flowbit.ui.income.IncomeViewModel
 import com.example.flowbit.ui.income.IncomeViewModelFactory
 import java.time.LocalDate
@@ -57,6 +57,11 @@ class CalendarFragment : Fragment(), CalendarAdapter.OnItemListener {
         binding.btnNextMonth.setOnClickListener {
             selectedDate = selectedDate.plusMonths(1)
             setMonthView()
+        }
+
+        binding.btnAdd.setOnClickListener {
+            val intent = Intent(requireContext(), AddListActivity::class.java)
+            startActivity(intent)
         }
 
         return binding.root

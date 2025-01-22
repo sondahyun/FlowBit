@@ -3,4 +3,26 @@
     <color name="red">#3F51B5</color>
     <color name="green">#E91E63</color>
     <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <!-- Primary Colors -->
+    <color name="light_primary">#4FA2E7</color> <!-- 밝은 회색 -->
+    <color name="light_primary_variant">#8C72BDDE</color> <!-- 약간 어두운 회색 -->
+    <color name="light_secondary">#669ED6F4</color> <!-- 차분한 보조 회색 -->
+
+    <!-- Background Colors -->
+    <color name="light_background">#FFFFFF</color> <!-- 흰색 배경 -->
+    <color name="light_surface">#FFFFFF</color> <!-- 살짝 회색 배경 -->
+    <color name="light_on_background">#212121</color> <!-- 글씨용 진한 회색 -->
+    <color name="light_on_surface">#424242</color> <!-- 글씨용 회색 -->
+
+    <!-- Primary Colors -->
+    <color name="dark_primary">#37474F</color> <!-- 어두운 회색 -->
+    <color name="dark_primary_variant">#263238</color> <!-- 더 짙은 회색 -->
+    <color name="dark_secondary">#425861</color> <!-- 세련된 청회색 -->
+
+    <!-- Background Colors -->
+    <color name="dark_background">#121212</color> <!-- 어두운 검은색 배경 -->
+    <color name="dark_surface">#BB7EB9E7</color> <!-- 약간 밝은 검은색 -->
+    <color name="dark_on_background">#E0E0E0</color> <!-- 글씨용 밝은 회색 -->
+    <color name="dark_on_surface">#E9D4DEEF</color> <!-- 글씨용 차분한 회색 -->
 </resources>

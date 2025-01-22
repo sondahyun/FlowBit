@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:id="@+id/calendar_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,10 +45,19 @@
             app:layout_constraintStart_toEndOf="@id/tv_month"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="60dp"
+            android:text="추가"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/btn_next_month" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <GridLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="2dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:id="@+id/week_days_header"

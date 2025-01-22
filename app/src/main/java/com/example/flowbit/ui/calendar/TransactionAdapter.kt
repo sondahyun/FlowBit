@@ -1,4 +1,4 @@
-package com.example.flowbit.ui.home
+package com.example.flowbit.ui.calendar
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

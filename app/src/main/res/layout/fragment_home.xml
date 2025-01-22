@@ -1,121 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/main_cal"
-        android:layout_width="108dp"
-        android:layout_height="121dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/cal_month"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="12월"
-        app:layout_constraintEnd_toEndOf="@+id/main_cal"
-        app:layout_constraintStart_toStartOf="@+id/main_cal"
-        app:layout_constraintTop_toTopOf="@+id/main_cal" />
-
-    <TextView
-        android:id="@+id/cal_day"
-        android:layout_width="52dp"
-        android:layout_height="46dp"
-        android:text="24"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/main_cal"
-        app:layout_constraintEnd_toEndOf="@+id/main_cal"
-        app:layout_constraintStart_toStartOf="@+id/main_cal"
-        app:layout_constraintTop_toBottomOf="@+id/cal_month" />
-
-    <View
-        android:id="@+id/money"
-        android:layout_width="298dp"
-        android:layout_height="116dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/main_cal"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/today"
-        android:layout_width="132dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="24dp"
-        android:text="오늘의 수익 :"
-        android:textSize="24sp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/todayIncome"
-        app:layout_constraintStart_toEndOf="@+id/main_cal"
-        app:layout_constraintTop_toTopOf="@+id/money" />
-
-    <TextView
-        android:id="@+id/todayExpense"
-        android:layout_width="122dp"
-        android:layout_height="34dp"
-        android:text="0"
-        android:textSize="24sp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintStart_toEndOf="@+id/today1"
-        app:layout_constraintTop_toBottomOf="@id/todayIncome"
-        />
-
-    <TextView
-        android:id="@+id/todayIncome"
-        android:layout_width="116dp"
-        android:layout_height="34dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginTop="24dp"
-        android:text="0"
-        android:textSize="24sp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintStart_toEndOf="@id/today"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/today1"
-        android:layout_width="132dp"
-        android:layout_height="34dp"
-        android:text="오늘의 지출 :"
-        android:textSize="24sp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@+id/main_cal"
-        app:layout_constraintTop_toBottomOf="@+id/today" />
-
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/money"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
-            android:id="@+id/linear"
+            android:id="@+id/Crypto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <Button
-                android:id="@+id/add_button"
+            <TextView
+                android:id="@+id/Crypto_name"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="크립토"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+
+<!--            <ImageView-->
+<!--                android:id="@+id/Crypto_icon"-->
+<!--                android:layout_width="36dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:src="@drawable/ic_notification"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/Crypto_name" />-->
+        </LinearLayout>
+
+        <!-- 배경을 가진 Balance Section -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/totalBalanceBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="15dp"
+            app:cardBackgroundColor="@color/dark_on_surface"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Crypto">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:background="#262D81"
-                android:text="추가"
-                android:textSize="20sp" />
+                android:padding="16dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/today_list"
-                android:layout_width="match_parent"
-                android:layout_height="746dp"
-                android:layout_marginTop="2dp" />
-        </LinearLayout>
-    </ScrollView>
+                <!-- Total Balance -->
+
+                <TextView
+                    android:id="@+id/totalBalanceTitle"
+                    android:layout_width="93dp"
+                    android:layout_height="28dp"
+                    android:text="My Balance"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/totalBalanceAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$2,108.22"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/totalBalanceTitle" />
+
+
+                <!-- Button Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/totalBalanceAmount">
+
+                    <LinearLayout
+                        android:id="@+id/receiveButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/ic_receive" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="받기"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/sendButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/ic_send" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="보내기"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/stakingButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/ic_staking" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="스테이킹"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/swapButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/ic_swap" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="스왑"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 탭 섹션 -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:tabMode="scrollable"
+            app:tabIndicatorColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/totalBalanceBox">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="크립토" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NFT" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <!-- 빈 상태 섹션 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout"
+            app:layout_constraintVertical_bias="1.0">
+
+            <ImageView
+                android:id="@+id/emptyStateIcon"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_empty"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/emptyStateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="크립토가 존재하지 않아요!"
+                android:textColor="@color/light_on_surface"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emptyStateIcon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

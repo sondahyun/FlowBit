@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.flowbit.R
 import com.example.flowbit.data.network.Exchange
-import com.example.flowbit.data.network.ExchangeList
 import com.example.flowbit.databinding.ItemExchangeRateBinding
 
 class ExchangeAdapter(private var exchanges: List<Exchange>) :
@@ -35,10 +34,15 @@ class ExchangeAdapter(private var exchanges: List<Exchange>) :
                     if (exchange.rate > 0) binding.root.context.getColor(R.color.green)
                     else binding.root.context.getColor(R.color.red)
                 )
-                setCompoundDrawablesWithIntrinsicBounds(
-                    if (exchange.rate > 0) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down,
-                    0, 0, 0
-                )
+                // 아이콘 크기 설정
+                val arrowDrawable = if (exchange.rate > 0) {
+                    binding.root.context.getDrawable(R.drawable.ic_arrow_up)
+                } else {
+                    binding.root.context.getDrawable(R.drawable.ic_arrow_down)
+                }
+                arrowDrawable?.setBounds(0, 0, 40, 40) // 크기 설정 (너비 40dp, 높이 40dp)
+                setCompoundDrawables(arrowDrawable, null, null, null)
+
             }
 
             // 암호화폐 아이콘 로드

@@ -2,7 +2,6 @@ package com.example.flowbit.data.repository
 
 import android.util.Log
 import com.example.flowbit.data.network.Exchange
-import com.example.flowbit.data.network.ExchangeList
 import com.example.flowbit.data.network.ExchangeResponse
 import com.example.flowbit.data.network.ExchangeService
 import kotlinx.coroutines.flow.Flow

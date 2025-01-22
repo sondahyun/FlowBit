@@ -2,6 +2,7 @@ package com.example.flowbit.data.network
 
 import com.google.gson.annotations.SerializedName
 
+// /getAllCryptoList
 data class ExchangeResponse(
     @SerializedName("success")
     val success: Int,
@@ -19,8 +20,6 @@ data class ExchangeData(
     val value: List<Exchange>,
     val options: Map<String, Any>
 )
-
-typealias ExchangeList = List<Exchange>
 
 data class Exchange(
     @SerializedName("symbol_list_id")
@@ -48,3 +47,17 @@ data class Exchange(
     @SerializedName("supported")
     val supported: Int
 )
+
+// /sendBlockchainSignedTransaction
+data class BlockchainTransactionRequest(
+    val blockchain: String, // 예: "Ethereum"
+    val GUID: String,       // GUID
+    val LUID: String,       // LUID
+    val signed_transaction: String // 서명된 트랜잭션
+)
+
+data class BlockchainTransactionResponse(
+    val sha3: String // 서버에서 반환된 sha3 해시 값
+)
+
+
