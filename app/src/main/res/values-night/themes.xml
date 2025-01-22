@@ -1,20 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme for dark mode -->
-    <style name="Base.Theme.FlowBit" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Primary colors -->
-        <item name="colorPrimary">@color/dark_primary</item>
-        <item name="colorPrimaryVariant">@color/dark_primary_variant</item>
-        <item name="colorOnPrimary">@color/black</item>
-
-        <!-- Secondary colors -->
-        <item name="colorSecondary">@color/dark_secondary</item>
-        <item name="colorOnSecondary">@color/black</item>
-
-        <!-- Background colors -->
+    <style name="Base.Theme.FlowBit" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- 배경 색상 -->
         <item name="android:windowBackground">@color/light_background</item>
-        <item name="colorSurface">@color/dark_surface</item>
-        <item name="colorOnBackground">@color/dark_on_background</item>
-        <item name="colorOnSurface">@color/dark_on_surface</item>
+        <item name="android:textColorPrimary">@color/black</item>
+
+        <!-- Ripple 효과 제거 -->
+        <item name="selectableItemBackground">@null</item>
+        <item name="selectableItemBackgroundBorderless">@null</item>
     </style>
 
     <style name="Theme.FlowBit" parent="Base.Theme.FlowBit" />

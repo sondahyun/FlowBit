@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.flowbit.R
 import com.example.flowbit.data.network.Exchange
 import com.example.flowbit.databinding.ItemExchangeRateBinding
@@ -50,6 +51,7 @@ class ExchangeAdapter(private var exchanges: List<Exchange>) :
                 .load(exchange.cryptoIcon)
                 .placeholder(R.drawable.placeholder_icon) // 로딩 중 표시할 기본 이미지
                 .error(R.drawable.error_icon) // 로드 실패 시 표시할 이미지
+                .transform(CircleCrop()) // 이미지를 원형으로 변환
                 .into(binding.cryptoIcon)
         }
     }

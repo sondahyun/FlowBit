@@ -7,6 +7,7 @@ import com.example.flowbit.ui.home.HomeFragment
 import com.example.flowbit.ui.calendar.CalendarFragment
 import com.example.flowbit.ui.exchange.MoneyFragment
 import com.example.flowbit.ui.map.MapFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,9 +17,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         setContentView(binding.root)
 
         val navigateTo = intent.getStringExtra("navigate_to")
+        binding.bottomNavigationView.setItemIconTintList(null)
 
         if (navigateTo == "HomeFragment") {
             showHomeFragment()

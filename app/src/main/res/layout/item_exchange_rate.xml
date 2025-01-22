@@ -1,76 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginTop="1dp"
+    android:layout_marginBottom="1dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <!-- Crypto Icon -->
-        <ImageView
-            android:id="@+id/crypto_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="12dp"
-            android:scaleType="centerCrop" />
-
-        <!-- Crypto Details -->
+        <!-- Main Content -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-            <!-- Currency Name -->
-            <TextView
-                android:id="@+id/currency_name"
+            <!-- Crypto Icon -->
+            <ImageView
+                android:id="@+id/crypto_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="12dp"
+                android:scaleType="centerCrop" />
+
+            <!-- Crypto Details -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <!-- Currency Name -->
+                <TextView
+                    android:id="@+id/currency_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bitcoin"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Country Name -->
+                <TextView
+                    android:id="@+id/country_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BTC / Bitcoin"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="16sp"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Exchange Rate & Change -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bitcoin"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:gravity="end">
 
-            <!-- Country Name -->
-            <TextView
-                android:id="@+id/country_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BTC / Bitcoin"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="16sp"
-                android:layout_marginTop="4dp" />
+                <!-- Exchange Rate -->
+                <TextView
+                    android:id="@+id/exchange_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₩60,000,000"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <!-- Change Percent -->
+                <TextView
+                    android:id="@+id/change_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+6.24%"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- Exchange Rate & Change -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="end">
-
-            <!-- Exchange Rate -->
-            <TextView
-                android:id="@+id/exchange_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="₩60,000,000"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-
-            <!-- Change Percent -->
-            <TextView
-                android:id="@+id/change_percent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+6.24%"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
-        </LinearLayout>
+        <!-- Divider Line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#BEAAAAAA" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -1,4 +1,3 @@
 package com.example.flowbit.ui.home
 
-class SendActivity {
-}
+class SendActivity

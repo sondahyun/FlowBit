@@ -19,18 +19,15 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
         />
 
-    <!-- BottomNavigationView -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/white"
-        android:fitsSystemWindows="true"
-        app:itemIconSize="30dp"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@null"
-        app:itemBackground="@android:color/transparent"
-        app:itemRippleColor="@android:color/transparent"
+        android:background="#FFFFFF"
+        app:labelVisibilityMode="unlabeled"
+        app:itemIconTint="@null"
+        app:itemBackground="@null"
+        app:itemIconSize="50dp"
         app:menu="@menu/menu_bottom_navigation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
