@@ -5,4 +5,5 @@
     <string name="url_map">https://openapi.naver.com/</string>
     <string name="naver_client_id">U5iRG2UVT6r6lXHLfsLb</string>
     <string name="naver_client_secret">FmrxYIU5ww</string>
+    <string name="_8_1"><![CDATA[8자 이상, 특수문자(!@#$%^&*_) 1개 이상]]></string>
 </resources>

@@ -16,4 +16,8 @@
         android:id="@+id/fragment_map"
         android:title="지도"
         android:icon="@drawable/ic_map"/>
+    <item
+        android:id="@+id/fragment_mypage"
+        android:title="마이페이지"
+        android:icon="@drawable/ic_mypage"/>
 </menu>

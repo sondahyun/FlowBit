@@ -51,6 +51,7 @@
             android:layout_height="50dp"
             android:layout_marginStart="60dp"
             android:text="추가"
+
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@id/btn_next_month" />
 

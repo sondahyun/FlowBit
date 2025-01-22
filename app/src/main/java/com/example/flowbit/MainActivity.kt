@@ -7,6 +7,7 @@ import com.example.flowbit.ui.home.HomeFragment
 import com.example.flowbit.ui.calendar.CalendarFragment
 import com.example.flowbit.ui.exchange.MoneyFragment
 import com.example.flowbit.ui.map.MapFragment
+import com.example.flowbit.ui.mypage.MyPageFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -69,6 +70,12 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.fragment_mypage -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_container, MyPageFragment())
+                        .commit()
+                    true
+                }
                 else -> false
             }
         }
