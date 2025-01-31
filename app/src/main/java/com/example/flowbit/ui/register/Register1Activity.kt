@@ -1,5 +1,6 @@
 package com.example.flowbit.ui.register
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -8,8 +9,9 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flowbit.databinding.ActivityRegister1Binding
+import com.example.flowbit.ui.login.LoginActivity
 
-class RegisterActivity1 : AppCompatActivity() {
+class Register1Activity : AppCompatActivity() {
     private lateinit var binding: ActivityRegister1Binding
     private var countDownTimer: CountDownTimer? = null
 
@@ -17,6 +19,10 @@ class RegisterActivity1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegister1Binding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnBack.setOnClickListener {
+            finish() // 현재 액티비티 종료 후 이전 화면으로 돌아감
+        }
 
         // 초기 버튼 비활성화 및 UI 숨김 처리
         binding.btnComplete.isEnabled = false
@@ -47,6 +53,7 @@ class RegisterActivity1 : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {}
         })
+
     }
 
     private fun sendVerificationCode() {

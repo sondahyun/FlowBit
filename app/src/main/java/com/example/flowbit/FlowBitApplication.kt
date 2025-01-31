@@ -3,7 +3,7 @@ package com.example.flowbit
 import android.app.Application
 import com.example.flowbit.data.database.AppDatabase
 import com.example.flowbit.data.map.MapService
-import com.example.flowbit.data.network.ExchangeService
+import com.example.flowbit.data.network.bsp.BspService
 import com.example.flowbit.data.repository.ExchangeRepository
 import com.example.flowbit.data.repository.ExpenseRepository
 import com.example.flowbit.data.repository.IncomeRepository
@@ -24,12 +24,12 @@ class FlowBitApplication : Application() {
         IncomeRepository(database.incomeDao())
     }
 
-    val exchangeService by lazy {
-        ExchangeService(this)
+    val bspService by lazy {
+        BspService(this)
     }
 
     val exchangeRepository by lazy {
-        ExchangeRepository(exchangeService)
+        ExchangeRepository(bspService)
     }
 
     val mapService by lazy {

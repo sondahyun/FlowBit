@@ -4,9 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.flowbit.data.map.Place
-import com.example.flowbit.data.map.Root
-import com.example.flowbit.data.network.Exchange
-import com.example.flowbit.data.repository.ExchangeRepository
 import com.example.flowbit.data.repository.MapRepository
 import kotlinx.coroutines.launch
 

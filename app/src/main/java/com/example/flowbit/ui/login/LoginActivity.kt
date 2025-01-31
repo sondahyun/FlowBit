@@ -5,12 +5,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flowbit.MainActivity
 import com.example.flowbit.databinding.ActivityLoginBinding
-import com.example.flowbit.ui.register.RegisterActivity1
+import com.example.flowbit.ui.register.Register1Activity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -43,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
 
         // 회원가입 버튼 클릭 이벤트
         binding.tvSignup.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity1::class.java))
+            startActivity(Intent(this, Register1Activity::class.java))
         }
 
         // 비밀번호 찾기 버튼 클릭 이벤트

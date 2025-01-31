@@ -2,7 +2,6 @@ package com.example.flowbit.ui.exchange
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.flowbit.data.network.Exchange
 import com.example.flowbit.data.repository.ExchangeRepository
 
 class ExchangeViewModelFactory(private val exchangeRepository: ExchangeRepository) : ViewModelProvider.Factory {

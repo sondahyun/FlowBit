@@ -1,8 +1,8 @@
-package com.example.flowbit.data.network
+package com.example.flowbit.data.network.bsp
 
 import com.google.gson.annotations.SerializedName
 
-// /getAllCryptoList
+// getAllCryptoList
 data class ExchangeResponse(
     @SerializedName("success")
     val success: Int,
@@ -48,7 +48,7 @@ data class Exchange(
     val supported: Int
 )
 
-// /sendBlockchainSignedTransaction
+// sendBlockchainSignedTransaction
 data class BlockchainTransactionRequest(
     val blockchain: String, // 예: "Ethereum"
     val GUID: String,       // GUID

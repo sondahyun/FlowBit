@@ -1,14 +1,12 @@
 package com.example.flowbit.ui.exchange
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.flowbit.data.network.Exchange
+import com.example.flowbit.data.network.bsp.Exchange
 import com.example.flowbit.data.repository.ExchangeRepository
 import kotlinx.coroutines.launch
-import java.net.UnknownHostException
 
 
 class ExchangeViewModel (val exchangeRepository: ExchangeRepository) : ViewModel() {

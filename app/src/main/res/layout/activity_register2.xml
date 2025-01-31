@@ -9,8 +9,8 @@
     <!-- 뒤로가기 버튼 -->
     <ImageButton
         android:id="@+id/btn_back"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:background="@null"
         android:src="@drawable/baseline_keyboard_arrow_left_24"
         app:layout_constraintStart_toStartOf="parent"

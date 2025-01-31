@@ -1,22 +1,15 @@
-package com.example.flowbit.data.network
+package com.example.flowbit.data.network.bsp
 
 import android.content.Context
 import android.util.Log
-import com.example.flowbit.R
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.security.KeyStore
-import java.security.cert.CertificateFactory
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManagerFactory
-import javax.net.ssl.X509TrustManager
 
-class ExchangeService (val context: Context) {
+class BspService (val context: Context) {
     val TAG = "ExchangeService"
 
     // Retrofit 서비스 객체
-    val exchangeService: IExchangeService // IBoxOfficeService의 객체
+    val bspService: IBspService // IBoxOfficeService의 객체
 
     init {
         val retrofit : Retrofit = Retrofit.Builder()
@@ -27,7 +20,7 @@ class ExchangeService (val context: Context) {
         // retrofit에 interface 구현 시킴 : IBoxOfficeService 객체 생성
         // IBoxOfficeService 내의 함수 사용 가능
         // Call<Root> 반환
-        exchangeService = retrofit.create(IExchangeService::class.java)
+        bspService = retrofit.create(IBspService::class.java)
     }
 
 
@@ -64,7 +57,7 @@ class ExchangeService (val context: Context) {
         // suspend 함수 호출
         Log.d("MoneyFragment", "ExchangeService 입장 성공")
 
-        val root : ExchangeResponse = exchangeService.getExchanges()
+        val root : ExchangeResponse = bspService.getExchanges()
         Log.d("MoneyFragment", "ExchangeService finish")
         return root
 

@@ -35,8 +35,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- AddTransactionActivity 등록 -->
         <activity
             android:name=".ui.home.AddListActivity"
             android:exported="true" />
@@ -51,6 +49,15 @@
             android:exported="true" />
         <activity
             android:name=".ui.home.SwapActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.register.Register1Activity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.register.RegisterActivity2"
             android:exported="true" />
 
 

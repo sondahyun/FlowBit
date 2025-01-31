@@ -1,13 +1,12 @@
 package com.example.flowbit.ui.exchange
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.flowbit.R
-import com.example.flowbit.data.network.Exchange
+import com.example.flowbit.data.network.bsp.Exchange
 import com.example.flowbit.databinding.ItemExchangeRateBinding
 
 class ExchangeAdapter(private var exchanges: List<Exchange>) :
