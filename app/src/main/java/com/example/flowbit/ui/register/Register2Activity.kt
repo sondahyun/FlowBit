@@ -1,6 +1,5 @@
 package com.example.flowbit.ui.register
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
@@ -10,7 +9,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flowbit.databinding.ActivityRegister2Binding
 
-class RegisterActivity2 : AppCompatActivity() {
+class Register2Activity : AppCompatActivity() {
     private lateinit var binding: ActivityRegister2Binding
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">FlowBit</string>
-    <string name="url">https://bsp.ltcwareko.com/</string>
+    <string name="bsp_url">https://bsp.ltcwareko.com/</string>
+    <string name="ums_url">https://ums.ltcwareko.com/</string>
     <string name="authkey">9OFTo1JgU4TEOei68k2iX5rOmNTTeieN</string>
     <string name="url_map">https://openapi.naver.com/</string>
+    <string name="back_button">뒤로 가기</string>
     <string name="naver_client_id">U5iRG2UVT6r6lXHLfsLb</string>
     <string name="naver_client_secret">FmrxYIU5ww</string>
     <string name="_8_1"><![CDATA[8자 이상, 특수문자(!@#$%^&*_) 1개 이상]]></string>

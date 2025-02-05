@@ -57,7 +57,7 @@
             android:name=".ui.register.Register1Activity"
             android:exported="true" />
         <activity
-            android:name=".ui.register.RegisterActivity2"
+            android:name=".ui.register.Register2Activity"
             android:exported="true" />
 
 

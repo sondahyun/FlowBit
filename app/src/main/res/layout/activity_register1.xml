@@ -9,14 +9,15 @@
     <!-- 뒤로가기 버튼 -->
     <ImageButton
         android:id="@+id/btn_back"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@null"
         android:src="@drawable/baseline_keyboard_arrow_left_24"
+        android:contentDescription="@string/back_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="50dp" />
 
     <!-- 타이틀 -->
     <TextView
@@ -138,5 +139,5 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />>
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

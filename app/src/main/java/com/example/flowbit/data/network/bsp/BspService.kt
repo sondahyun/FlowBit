@@ -2,6 +2,7 @@ package com.example.flowbit.data.network.bsp
 
 import android.content.Context
 import android.util.Log
+import com.example.flowbit.R
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -13,7 +14,7 @@ class BspService (val context: Context) {
 
     init {
         val retrofit : Retrofit = Retrofit.Builder()
-            .baseUrl("https://bsp.ltcwareko.com/") // url 입력
+            .baseUrl(context.resources.getString(R.string.bsp_url)) // url 입력
             .addConverterFactory(GsonConverterFactory.create()) // 가져온 json을 DTO로 parsing -> converter 이용해서 변환 -> gson 이용
             .build()
 
