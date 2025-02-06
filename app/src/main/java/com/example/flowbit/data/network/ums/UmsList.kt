@@ -153,7 +153,14 @@ data class VerifyUserEmailRequest(
 data class VerifyUserEmailResponse(
     @SerializedName("success") val success: Int,
     @SerializedName("status") val status: Int,
+    @SerializedName("data") val data: EmailVerificationData?,
     @SerializedName("msg") val msg: String
+)
+
+// `data` 필드 정의
+data class EmailVerificationData(
+    @SerializedName("code") val code: Int,
+    @SerializedName("transfer_time") val transferTime: Long
 )
 
 // 공지사항 조회 API (getAllUMSNotice)

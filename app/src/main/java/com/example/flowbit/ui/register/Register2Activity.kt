@@ -17,16 +17,14 @@ class Register2Activity : AppCompatActivity() {
         binding = ActivityRegister2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.btnBack.setOnClickListener { finish() } // 뒤로가기 버튼
+
         // 초기 UI 설정
         binding.btnComplete.isEnabled = false
         binding.btnComplete.setBackgroundColor(Color.parseColor("#E5E7EB"))
         binding.tvErrorMessage.visibility = View.GONE
 
-        // 비밀번호 입력 리스너 추가
-        binding.etNewPassword.addTextChangedListener(passwordWatcher)
-        binding.etConfirmPassword.addTextChangedListener(passwordWatcher)
-
-        // 비밀번호 보기 버튼 설정
+           // 비밀번호 보기 버튼 설정
         binding.btnTogglePasswordVisibility.setOnClickListener { togglePasswordVisibility(binding.etNewPassword) }
         binding.btnToggleConfirmPasswordVisibility.setOnClickListener { togglePasswordVisibility(binding.etConfirmPassword) }
 
@@ -36,16 +34,7 @@ class Register2Activity : AppCompatActivity() {
         }
     }
 
-    // 비밀번호 검증 로직 (실시간 체크)
-    private val passwordWatcher = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            validatePassword()
-        }
-
-        override fun afterTextChanged(s: Editable?) {}
-    }
 
     // **입력 완료 버튼 클릭 시 검증**
     private fun validateBeforeSubmit() {
@@ -68,32 +57,11 @@ class Register2Activity : AppCompatActivity() {
         proceedToNextStep()
     }
 
-    private fun validatePassword() {
-        val newPassword = binding.etNewPassword.text.toString()
-        val confirmPassword = binding.etConfirmPassword.text.toString()
 
-        // 비밀번호 조건 만족 여부 확인
-        if (!isValidPassword(newPassword)) {
-            binding.btnComplete.isEnabled = false
-            binding.btnComplete.setBackgroundColor(Color.parseColor("#E5E7EB"))
-            return
-        }
-
-        // 비밀번호 일치 여부 검사
-        if (newPassword == confirmPassword) {
-            binding.tvErrorMessage.visibility = View.GONE
-            binding.btnComplete.isEnabled = true
-            binding.btnComplete.setBackgroundColor(Color.parseColor("#2563EB")) // 파란색 활성화
-        } else {
-            binding.tvErrorMessage.visibility = View.VISIBLE
-            binding.btnComplete.isEnabled = false
-            binding.btnComplete.setBackgroundColor(Color.parseColor("#E5E7EB")) // 회색 비활성화
-        }
-    }
 
     // 비밀번호 조건 검사 (8자 이상 + 특수문자 포함)
     private fun isValidPassword(password: String): Boolean {
-        val regex = "^(?=.*[!@#\$%^&*()_+=]).{8,}$".toRegex()
+        val regex = "^(?=.*[!@#\$%^&*_])[A-Za-z0-9!@#\$%^&*_]{8,}$".toRegex()
         return password.matches(regex)
     }
 

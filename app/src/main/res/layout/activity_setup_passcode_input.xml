@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- 뒤로가기 버튼 -->
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@null"
+        android:src="@drawable/baseline_keyboard_arrow_left_24"
+        android:contentDescription="@string/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp" />
+
+    <!-- 타이틀 -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="초기설정 2/3"
+        android:textColor="#64748B"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="60dp" />
+
+    <!-- 패스코드 아이콘 및 타이틀 -->
+    <LinearLayout
+        android:id="@+id/ll_passcode_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/iv_passcode_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/passcode"
+            android:contentDescription="패스코드 아이콘"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_passcode_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="패스코드"
+            android:textColor="#1E293B"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- 패스코드 설명 -->
+    <TextView
+        android:id="@+id/tv_passcode_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="내가 기억할 수 있는 자유로운 문자 암호"
+        android:textColor="#475569"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/ll_passcode_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- 패스코드 입력란 -->
+    <EditText
+        android:id="@+id/et_passcode"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_edit_text"
+        android:hint="패스코드 입력"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="#1E293B"
+        android:textColorHint="#94A3B8"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_passcode_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp" />
+
+    <!-- 패스코드 안내 메시지 -->
+    <TextView
+        android:id="@+id/tv_passcode_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="• 패스코드는 글자 길이에 제한이 없으며 알파벳, 한글, 숫자, 특수문자, 공백을 입력할 수 있습니다.\n• 소유물을 추가하거나 전송, 복구 등의 작업 시 사용합니다."
+        android:textColor="#475569"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/et_passcode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp" />
+
+    <!-- 다음으로 버튼 -->
+    <Button
+        android:id="@+id/btn_complete"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:backgroundTint="#E5E7EB"
+        android:enabled="false"
+        android:text="완료"
+        android:textColor="#94A3B8"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
