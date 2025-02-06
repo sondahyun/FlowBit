@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import com.example.flowbit.FlowBitApplication
 import com.example.flowbit.R
 import com.example.flowbit.data.map.Place
+import com.example.flowbit.databinding.FragmentHomeBinding
 import com.example.flowbit.databinding.FragmentMapBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -31,8 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
-    private var _binding: FragmentMapBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentMapBinding
 
     private lateinit var googleMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -76,7 +76,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         container: android.view.ViewGroup?,
         savedInstanceState: Bundle?
     ): android.view.View {
-        _binding = FragmentMapBinding.inflate(inflater, container, false)
+        binding = FragmentMapBinding.inflate(inflater, container, false)
 
         // 지도 초기화
         val mapFragment =
