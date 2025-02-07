@@ -31,8 +31,12 @@ class UmsService (val context: Context) {
         // suspend 함수 호출
         val root : VerifyUserEmailResponse = umsService.verifyUserEmailAddress(request)
         return root
-
         // return null // response.body()?.boxOfficeResult?.boxOfficeList
+    }
+
+    suspend fun registerUser(request: RegisterUserRequest) : RegisterUserResponse {
+        val root : RegisterUserResponse = umsService.registerUser(request)
+        return root
     }
 
 }

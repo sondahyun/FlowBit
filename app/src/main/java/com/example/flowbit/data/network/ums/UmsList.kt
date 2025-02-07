@@ -10,20 +10,6 @@ data class EmailCheckResponse(
     @SerializedName("msg") val msg: String
 )
 
-// 회원가입 API (registerUser)
-data class RegisterUserRequest(
-    val email_address: String,
-    val password_hash: String,
-    val app_instance_ID: String
-)
-
-data class RegisterUserResponse(
-    @SerializedName("success") val success: Int,
-    @SerializedName("status") val status: Int,
-    @SerializedName("GUID") val guid: String?,
-    @SerializedName("msg") val msg: String
-)
-
 // 일반 로그인 API (loginUser)
 data class LoginUserRequest(
     val email_address: String,
@@ -161,6 +147,26 @@ data class VerifyUserEmailResponse(
 data class EmailVerificationData(
     @SerializedName("code") val code: Int,
     @SerializedName("transfer_time") val transferTime: Long
+)
+
+// 회원가입 API (registerUser)
+data class RegisterUserRequest(
+    val email_address: String,
+    val password_hash: String,
+    val app_instance_ID: String
+)
+
+data class RegisterUserResponse(
+    @SerializedName("success") val success: Int,
+    @SerializedName("status") val status: Int,
+    @SerializedName("data") val data: RegisterUserData?, // "data" 필드 추가
+    @SerializedName("msg") val msg: String
+)
+
+// "data" 필드에 대한 데이터 클래스 추가
+data class RegisterUserData(
+    @SerializedName("GUID") val guid: String,
+    @SerializedName("username") val username: String
 )
 
 // 공지사항 조회 API (getAllUMSNotice)

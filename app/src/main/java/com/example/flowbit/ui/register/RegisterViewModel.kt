@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.flowbit.data.entity.Expense
 import com.example.flowbit.data.network.bsp.Exchange
+import com.example.flowbit.data.network.ums.RegisterUserRequest
+import com.example.flowbit.data.network.ums.RegisterUserResponse
 import com.example.flowbit.data.network.ums.VerifyUserEmailRequest
 import com.example.flowbit.data.network.ums.VerifyUserEmailResponse
 import com.example.flowbit.data.repository.RegisterRepository
@@ -44,5 +46,16 @@ class RegisterViewModel (val registerRepository: RegisterRepository): ViewModel(
             result = registerRepository.verifyUserEmailAddress(request)
         }
         _responseVerifyUserEmailResponse.value = result
+    }
+
+    private var _responseRegisterUserResponse = MutableLiveData<RegisterUserResponse>()
+    val responseRegisterUserResponse = _responseRegisterUserResponse
+
+    fun registerUser(request: RegisterUserRequest) = viewModelScope.launch {
+        var result : RegisterUserResponse
+        withContext(Dispatchers.IO) {
+            result = registerRepository.registerUser(request)
+        }
+        _responseRegisterUserResponse.value = result
     }
 }

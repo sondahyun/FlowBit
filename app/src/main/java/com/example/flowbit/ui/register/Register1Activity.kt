@@ -52,10 +52,12 @@ class Register1Activity : AppCompatActivity() {
 
                 // 버튼 색상 및 활성화 상태 변경
                 binding.btnComplete.isEnabled = isValidCode
-                binding.btnComplete.setBackgroundColor(
-                    if (isValidCode) Color.parseColor("#768BD9") else Color.parseColor("#E5E7EB")
+                binding.btnComplete.backgroundTintList =
+                    getColorStateList(if (isValidCode) R.color.active_button else R.color.inactive_button)
+                // 버튼 글자색 변경 (활성화 시 흰색, 비활성화 시 기본 색상)
+                binding.btnComplete.setTextColor(
+                    if (isValidCode) Color.WHITE else getColor(R.color.inactive_button)
                 )
-
             }
 
             override fun afterTextChanged(s: Editable?) {}

@@ -25,4 +25,7 @@
     <color name="dark_surface">#BB7EB9E7</color> <!-- 약간 밝은 검은색 -->
     <color name="dark_on_background">#E0E0E0</color> <!-- 글씨용 밝은 회색 -->
     <color name="dark_on_surface">#E9D4DEEF</color> <!-- 글씨용 차분한 회색 -->
+    <color name="active_button">#768BD9</color>
+    <color name="inactive_button">#E5E7EB</color>
+    <color name="inactive_text">#94A3B8</color>
 </resources>
