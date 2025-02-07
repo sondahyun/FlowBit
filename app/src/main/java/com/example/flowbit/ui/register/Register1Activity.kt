@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.flowbit.FlowBitApplication
+import com.example.flowbit.R
 import com.example.flowbit.data.network.ums.VerifyUserEmailRequest
 import com.example.flowbit.data.network.ums.VerifyUserEmailResponse
 import com.example.flowbit.databinding.ActivityRegister1Binding
@@ -44,12 +46,18 @@ class Register1Activity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val inputCode = s?.toString()?.trim()
-                val isValidCode = inputCode?.length == 6
+                val isValidCode = inputCode?.length == 6 && inputCode.all { it.isDigit() } // 6자리 숫자인지 체크
+
+                Log.d("Register1Activity", "입력된 인증번호: $inputCode, 유효 여부: $isValidCode")
+
+                // 버튼 색상 및 활성화 상태 변경
                 binding.btnComplete.isEnabled = isValidCode
                 binding.btnComplete.setBackgroundColor(
-                    if (isValidCode) Color.parseColor("#2563EB") else Color.parseColor("#E5E7EB")
+                    if (isValidCode) Color.parseColor("#768BD9") else Color.parseColor("#E5E7EB")
                 )
+
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -100,12 +108,31 @@ class Register1Activity : AppCompatActivity() {
         when (response.status) {
             201 -> { // 성공
                 verificationCode = response.data?.code // 서버에서 받은 인증번호 저장
+                Log.d("Register1Activity", "$verificationCode")
+
             }
-            400, 401, 402 -> showErrorDialog("이메일 전송에 실패했습니다. 다시 입력해주세요.")
-            403 -> showErrorDialog("이메일 전송이 차단되었습니다. 관리자에게 문의하세요.")
-            else -> showErrorDialog("알 수 없는 오류가 발생했습니다. 다시 시도해주세요.")
+            400 -> showErrorAndReset("입력한 이메일이 올바르지 않습니다. 다시 확인해주세요.")
+            401 -> showErrorAndReset("인증 요청이 너무 많습니다. 잠시 후 다시 시도해주세요.")
+            402 -> showErrorAndReset("이메일 전송에 실패했습니다. 네트워크 상태를 확인해주세요.")
+            403 -> showErrorAndReset("이메일 전송이 차단되었습니다. 관리자에게 문의하세요.")
+            else -> showErrorAndReset("알 수 없는 오류가 발생했습니다. 다시 시도해주세요.")
         }
     }
+
+    // 에러 메시지 출력 후 UI 초기화
+    private fun showErrorAndReset(message: String) {
+        Log.e("Register1Activity", "에러 발생: $message") // 로그 기록
+//        val dialogView = layoutInflater.inflate(R.layout.dialog_custom, null)
+
+        AlertDialog.Builder(this)
+            .setTitle("오류")
+            .setMessage(message)
+            .setPositiveButton("확인") { _, _ -> resetUI() } // 확인 버튼을 누르면 초기화
+            .setCancelable(false) // 배경 클릭 방지
+            .show()
+    }
+
+
 
     // 인증번호 확인
     private fun verifyCode() {

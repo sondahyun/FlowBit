@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/bg_rounded_dialog"
+    android:padding="24dp">
+
+    <!-- 확인 버튼 (크기 조절 가능) -->
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:text="확인"
+        android:backgroundTint="#768BD9"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF" />
+</LinearLayout>
