@@ -147,7 +147,11 @@ class Register1Activity : AppCompatActivity() {
 
         if (inputCode == verificationCode) {
             Toast.makeText(this, "인증 성공!", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, Register2Activity::class.java))
+            // email 전달
+            val intent = Intent(this, Register2Activity::class.java).apply {
+                putExtra("email", binding.etEmail.text.toString().trim()) // 이메일 전달
+            }
+            startActivity(intent)
             finish()
         } else {
             showErrorDialog("인증번호가 일치하지 않습니다.")

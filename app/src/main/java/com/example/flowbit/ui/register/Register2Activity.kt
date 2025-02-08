@@ -16,9 +16,12 @@ import com.example.flowbit.R
 import com.example.flowbit.data.network.ums.RegisterUserRequest
 import com.example.flowbit.data.network.ums.RegisterUserResponse
 import com.example.flowbit.databinding.ActivityRegister2Binding
+import java.security.MessageDigest
 
 class Register2Activity : AppCompatActivity() {
     private lateinit var binding: ActivityRegister2Binding
+    // 이메일 저장 변수
+    private lateinit var userEmail: String
 
     private val registerViewModel: RegisterViewModel by viewModels {
         RegisterViewModelFactory((application as FlowBitApplication).registerRepository)
@@ -28,6 +31,10 @@ class Register2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegister2Binding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // register1activity에서 받아온 email
+        userEmail = intent.getStringExtra("email").toString()
+        Log.d("Register2Activity", "받은 이메일: $userEmail")
 
         binding.btnBack.setOnClickListener { finish() } // 뒤로가기 버튼
 
@@ -49,28 +56,44 @@ class Register2Activity : AppCompatActivity() {
         // 인증번호 입력 리스너 (6자리 입력하면 자동으로 버튼 활성화)
         binding.etNewPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val inputCode = s?.toString()?.trim()
-                val isValidCode = inputCode?.length == 6 && inputCode.all { it.isDigit() } // 6자리 숫자인지 체크
 
-                Log.d("Register2Activity", "입력된 인증번호: $inputCode, 유효 여부: $isValidCode")
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val inputPassword = s?.toString()?.trim()
+                val isValidPassword = isValidPassword(inputPassword)
+
+                Log.d("Register2Activity", "입력된 비밀번호: $inputPassword, 유효 여부: $isValidPassword")
 
                 // 버튼 색상 및 활성화 상태 변경
-                binding.btnComplete.isEnabled = isValidCode
+                binding.btnComplete.isEnabled = isValidPassword
                 binding.btnComplete.backgroundTintList =
-                    getColorStateList(if (isValidCode) R.color.active_button else R.color.inactive_button)
+                    getColorStateList(if (isValidPassword) R.color.active_button else R.color.inactive_button)
+
                 // 버튼 글자색 변경 (활성화 시 흰색, 비활성화 시 기본 색상)
                 binding.btnComplete.setTextColor(
-                    if (isValidCode) Color.WHITE else getColor(R.color.inactive_button)
+                    if (isValidPassword) Color.WHITE else getColor(R.color.inactive_button)
                 )
+                if (isValidPassword) {
+                    Log.d("Register2Activity", "비밀번호 8자 이상, 특수문자 1개 이상: 조건 만족함")
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
 
     }
+    // 비밀번호 유효성 검사 함수
+    private fun isValidPassword(password: String?): Boolean {
+        if (password.isNullOrEmpty()) return false
+        val regex = "^(?=.*[!@#\$%^&*_])[A-Za-z0-9!@#\$%^&*_]{8,}$".toRegex()
+        return password.matches(regex)
+    }
 
 
+//    // 비밀번호 조건 검사 (8자 이상 + 특수문자 포함)
+//    private fun isValidPassword(password: String): Boolean {
+//        val regex = "^(?=.*[!@#\$%^&*_])[A-Za-z0-9!@#\$%^&*_]{8,}$".toRegex()
+//        return password.matches(regex)
+//    }
 
     // **입력 완료 버튼 클릭 시 검증**
     private fun validateBeforeSubmit() {
@@ -111,12 +134,6 @@ class Register2Activity : AppCompatActivity() {
             .show()
     }
 
-    // 비밀번호 조건 검사 (8자 이상 + 특수문자 포함)
-    private fun isValidPassword(password: String): Boolean {
-        val regex = "^(?=.*[!@#\$%^&*_])[A-Za-z0-9!@#\$%^&*_]{8,}$".toRegex()
-        return password.matches(regex)
-    }
-
     // 비밀번호 조건 불충족 시 경고창 표시
     private fun showPasswordAlert() {
         AlertDialog.Builder(this)
@@ -139,10 +156,31 @@ class Register2Activity : AppCompatActivity() {
 
     // 회원가입 완료
     private fun proceedToNextStep() {
-        RegisterUserRequest()
-        registerViewModel.registerUser()
+        val newPassword = binding.etNewPassword.text.toString()
+
+        // 비밀번호를 SHA-256으로 해시
+        val hashedPassword = hashPassword(newPassword)
+
+        // 해시된 비밀번호를 API에 전달
+        val request = RegisterUserRequest(userEmail, hashedPassword, "test")
+        Log.d("Register2Activity", "$userEmail, $hashedPassword, test")
+        registerViewModel.registerUser(request)
+
         Toast.makeText(this, "회원가입 성공!", Toast.LENGTH_SHORT).show()
-        startActivity(Intent(this, Register3Activity::class.java))
+        val intent = Intent(this, Register3Activity::class.java).apply {
+            putExtra("email", userEmail) // 이메일 전달
+            putExtra("hasedPassword", hashedPassword)
+            putExtra("app_instance_ID", "test")
+        }
+        startActivity(intent)
         finish()
+    }
+
+    // SHA-256 해시 함수 추가
+    private fun hashPassword(password: String): String {
+        val bytes = password.toByteArray()
+        val md = MessageDigest.getInstance("SHA-256") // SHA-256 알고리즘 사용
+        val digest = md.digest(bytes) // 해싱 수행
+        return digest.joinToString("") { "%02x".format(it) } // 16진수 문자열로 변환
     }
 }
