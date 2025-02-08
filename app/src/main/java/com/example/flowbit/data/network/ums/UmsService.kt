@@ -39,4 +39,9 @@ class UmsService (val context: Context) {
         return root
     }
 
+    suspend fun changeUserMembership(request: ChangeUserMembershipRequest) : ChangeUserMembershipResponse {
+        val root : ChangeUserMembershipResponse = umsService.changeUserMembership(request)
+        return root
+    }
+
 }

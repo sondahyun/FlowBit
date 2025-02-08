@@ -11,10 +11,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.flowbit.FlowBitApplication
 import com.example.flowbit.R
+import com.example.flowbit.data.network.ums.GUIDResponse
 import com.example.flowbit.data.network.ums.RegisterUserRequest
 import com.example.flowbit.data.network.ums.RegisterUserResponse
+import com.example.flowbit.data.network.ums.VerifyUserEmailResponse
 import com.example.flowbit.databinding.ActivityRegister2Binding
 import java.security.MessageDigest
 
@@ -22,6 +25,11 @@ class Register2Activity : AppCompatActivity() {
     private lateinit var binding: ActivityRegister2Binding
     // 이메일 저장 변수
     private lateinit var userEmail: String
+    // response (registerUser API)
+    private var guid: String? = null
+    private var username: String? = null
+    // hashedPassword
+    private lateinit var hashedPassword: String
 
     private val registerViewModel: RegisterViewModel by viewModels {
         RegisterViewModelFactory((application as FlowBitApplication).registerRepository)
@@ -36,7 +44,8 @@ class Register2Activity : AppCompatActivity() {
         userEmail = intent.getStringExtra("email").toString()
         Log.d("Register2Activity", "받은 이메일: $userEmail")
 
-        binding.btnBack.setOnClickListener { finish() } // 뒤로가기 버튼
+        // 뒤로가기 버튼
+        binding.btnBack.setOnClickListener { finish() }
 
         // 초기 UI 설정
         binding.btnComplete.isEnabled = false
@@ -158,22 +167,90 @@ class Register2Activity : AppCompatActivity() {
     private fun proceedToNextStep() {
         val newPassword = binding.etNewPassword.text.toString()
 
+
         // 비밀번호를 SHA-256으로 해시
-        val hashedPassword = hashPassword(newPassword)
+        hashedPassword = hashPassword(newPassword)
 
         // 해시된 비밀번호를 API에 전달
         val request = RegisterUserRequest(userEmail, hashedPassword, "test")
         Log.d("Register2Activity", "$userEmail, $hashedPassword, test")
         registerViewModel.registerUser(request)
 
-        Toast.makeText(this, "회원가입 성공!", Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, Register3Activity::class.java).apply {
-            putExtra("email", userEmail) // 이메일 전달
-            putExtra("hasedPassword", hashedPassword)
-            putExtra("app_instance_ID", "test")
+        // 서버 응답을 감지하여 처리
+        registerViewModel.responseRegisterUserResponse.observe(this, Observer { response ->
+            handleVerificationResponse(response)
+
+//            response.data?.let { data ->
+//                guid = data.guid
+//                username = data.username
+//
+//                // 다음 화면으로 이동
+//                val intent = Intent(this, Register3Activity::class.java).apply {
+//                    putExtra("email", userEmail)
+//                    putExtra("hashedPassword", hashedPassword)
+//                    putExtra("app_instance_ID", "test")
+//                    putExtra("guid", guid)
+//                    putExtra("username", username)
+//                }
+//                startActivity(intent)
+//                finish()
+//            } ?: run {
+//                showErrorDialog("회원가입에 실패하였습니다. 다시 시도해주세요.")
+//            }
+        })
+    }
+
+    // 서버 응답 처리
+    private fun handleVerificationResponse(response: RegisterUserResponse?) {
+        if (response == null) {
+            showErrorDialog("서버 응답이 없습니다. 다시 시도해주세요.")
+            return
         }
-        startActivity(intent)
-        finish()
+
+        when (response.status) {
+            201 -> { // 성공
+                guid = response.data?.guid  // 서버에서 받은 guid 저장
+                username = response.data?.username // 서버에서 받은 username
+                Log.d("Register2Activity", "$guid")
+
+                // 다음 화면으로 이동
+                val intent = Intent(this, Register3Activity::class.java).apply {
+                    putExtra("email", userEmail)
+                    putExtra("hashedPassword", hashedPassword)
+                    putExtra("app_instance_ID", "test")
+                    putExtra("guid", guid)
+                    putExtra("username", username)
+                }
+                startActivity(intent)
+                finish()
+
+            }
+            400 -> showErrorAndReset("Null Exception Error")
+            401 -> showErrorAndReset("파라미터 누락되었습니다.")
+            402 -> showErrorAndReset("알 수 없는 에러가 발생했습니다.")
+            403 -> showErrorAndReset("해당 정보를 가지고 있는 사용자가 이미 있습니다.")
+            404 -> showErrorAndReset("정보 저장 시 에러가 발생했습니다.")
+            405 -> showErrorAndReset("탈퇴한 아이디로 로그인을 시도했습니다.")
+            else -> showErrorAndReset("")
+        }
+    }
+
+    // 에러 메시지 출력 후 UI 초기화
+    private fun showErrorAndReset(message: String) {
+        Log.e("Register2Activity", "에러 발생: $message") // 로그 기록
+//        val dialogView = layoutInflater.inflate(R.layout.dialog_custom, null)
+
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("오류")
+            .setMessage(message)
+            .setPositiveButton("확인") { _, _ -> resetUI() } // 확인 버튼을 누르면 초기화
+            .setCancelable(false) // 배경 클릭 방지
+            .show()
+    }
+
+    private fun resetUI() {
+        binding.btnComplete.isEnabled = false
+        binding.btnComplete.setBackgroundColor(Color.parseColor("#E5E7EB"))
     }
 
     // SHA-256 해시 함수 추가

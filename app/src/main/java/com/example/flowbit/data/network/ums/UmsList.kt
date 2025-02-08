@@ -66,21 +66,6 @@ data class UpdateFCMTokenResponse(
     @SerializedName("msg") val msg: String
 )
 
-// 회원 등급 변경 API (changeUserMembership)
-data class ChangeUserMembershipRequest(
-    val GUID: String,
-    val membership: Int,
-    val phone_number: String,
-    val name: String?,
-    val birthdate: String?,
-    val residence: String?
-)
-
-data class ChangeUserMembershipResponse(
-    @SerializedName("success") val success: Int,
-    @SerializedName("status") val status: Int,
-    @SerializedName("msg") val msg: String
-)
 
 // 회원 탈퇴 API (unregisterUser)
 data class UnregisterUserRequest(
@@ -167,6 +152,24 @@ data class RegisterUserResponse(
 data class RegisterUserData(
     @SerializedName("GUID") val guid: String,
     @SerializedName("username") val username: String
+)
+
+// 회원 등급 변경 API (changeUserMembership)
+data class ChangeUserMembershipRequest(
+    val GUID: String,
+    val membership: Int,
+    val phone_number: String,
+    val name: String?,
+    val birthdate: String?,
+    val residence: String?,
+    val payment: String?
+)
+
+data class ChangeUserMembershipResponse(
+    @SerializedName("success") val success: Int,
+    @SerializedName("status") val status: Int,
+    @SerializedName("data") val data: Any?,
+    @SerializedName("msg") val msg: String
 )
 
 // 공지사항 조회 API (getAllUMSNotice)

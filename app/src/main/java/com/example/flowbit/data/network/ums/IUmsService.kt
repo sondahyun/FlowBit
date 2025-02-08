@@ -10,9 +10,6 @@ interface IUmsService {
     @GET("checkUserEmailExists")
     suspend fun checkUserEmailExists(@Query("email_address") email: String): EmailCheckResponse
 
-    @POST("registerUser")
-    suspend fun registerUser(@Body request: RegisterUserRequest): RegisterUserResponse
-
     @POST("loginUser")
     suspend fun loginUser(@Body request: LoginUserRequest): LoginUserResponse
 
@@ -24,9 +21,6 @@ interface IUmsService {
 
     @POST("updateFCMToken")
     suspend fun updateFCMToken(@Body request: UpdateFCMTokenRequest): UpdateFCMTokenResponse
-
-    @POST("changeUserMembership")
-    suspend fun changeUserMembership(@Body request: ChangeUserMembershipRequest): ChangeUserMembershipResponse
 
     @POST("unregisterUser")
     suspend fun unregisterUser(@Body request: UnregisterUserRequest): UnregisterUserResponse
@@ -42,6 +36,12 @@ interface IUmsService {
 
     @POST("verifyUserEmailAddress")
     suspend fun verifyUserEmailAddress(@Body request: VerifyUserEmailRequest): VerifyUserEmailResponse
+
+    @POST("registerUser")
+    suspend fun registerUser(@Body request: RegisterUserRequest): RegisterUserResponse
+
+    @POST("changeUserMembership")
+    suspend fun changeUserMembership(@Body request: ChangeUserMembershipRequest): ChangeUserMembershipResponse
 
     @POST("getAllUMSNotice")
     suspend fun getAllUMSNotice(@Body request: GetUMSNoticeRequest): GetUMSNoticeResponse
