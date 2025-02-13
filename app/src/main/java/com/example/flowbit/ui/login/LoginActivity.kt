@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
 
         // 비밀번호 찾기 버튼 클릭 이벤트
         binding.tvFindPassword.setOnClickListener {
-            startActivity(Intent(this, ForgotPasswordActivity::class.java))
+            startActivity(Intent(this, ForgotPassword1Activity::class.java))
         }
     }
 
