@@ -163,7 +163,9 @@ class Register3Activity : AppCompatActivity() {
 
                 // 다음 화면으로 이동
                 Toast.makeText(this, "회원가입 성공!", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, SetupPinActivity::class.java).apply {
+//                val intent = Intent(this, SetupPinActivity::class.java).apply {
+//                }
+                val intent = Intent(this, SetupPasscodeActivity::class.java).apply {
                 }
                 startActivity(intent)
                 finish()
