@@ -44,4 +44,9 @@ class UmsService (val context: Context) {
         return root
     }
 
+    // suspend는 suspend안에서만 실행 가능함
+    suspend fun updateLostPassword(request: UpdateLostPasswordRequest)  : UpdateLostPasswordResponse {
+        val root : UpdateLostPasswordResponse = umsService.updateLostPassword(request)
+        return root
+    }
 }

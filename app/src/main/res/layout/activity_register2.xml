@@ -81,7 +81,8 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@null"
-            android:src="@drawable/ic_visibility_off"
+            android:src="@drawable/ic_visibility"
+            android:layout_marginBottom="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -128,14 +129,16 @@
             android:textColorHint="#94A3B8"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btn_toggle_confirm_password_visibility" />
+            app:layout_constraintEnd_toStartOf="@id/btn_toggle_confirm_password_visibility"
+            tools:ignore="MissingConstraints" />
 
         <ImageButton
             android:id="@+id/btn_toggle_confirm_password_visibility"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@null"
-            android:src="@drawable/ic_visibility_off"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_visibility"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />

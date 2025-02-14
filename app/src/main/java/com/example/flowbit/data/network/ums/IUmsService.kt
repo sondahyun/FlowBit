@@ -28,9 +28,6 @@ interface IUmsService {
     @POST("updateUsername")
     suspend fun updateUsername(@Body request: UpdateUsernameRequest): UpdateUsernameResponse
 
-    @POST("updateLostPassword") // 로그인 전 비밀번호 찾기
-    suspend fun updateLostPassword(@Body request: UpdateLostPasswordRequest): UpdateLostPasswordResponse
-
     @POST("updatePassword")
     suspend fun updatePassword(@Body request: UpdatePasswordRequest): UpdatePasswordResponse
 
@@ -42,6 +39,9 @@ interface IUmsService {
 
     @POST("changeUserMembership") // 유저 회원가입 후 사용자에게 개인정보 내용 입력받아 서버 DB 업데이트를 위해 호출되는 API
     suspend fun changeUserMembership(@Body request: ChangeUserMembershipRequest): ChangeUserMembershipResponse
+
+    @POST("updateLostPassword") // 로그인 전 비밀번호 찾기
+    suspend fun updateLostPassword(@Body request: UpdateLostPasswordRequest): UpdateLostPasswordResponse
 
     @POST("getAllUMSNotice")
     suspend fun getAllUMSNotice(@Body request: GetUMSNoticeRequest): GetUMSNoticeResponse

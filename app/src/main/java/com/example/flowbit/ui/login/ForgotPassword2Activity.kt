@@ -10,10 +10,13 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.flowbit.FlowBitApplication
 import com.example.flowbit.R
 import com.example.flowbit.data.network.ums.RegisterUserRequest
 import com.example.flowbit.data.network.ums.RegisterUserResponse
+import com.example.flowbit.data.network.ums.UpdateLostPasswordRequest
+import com.example.flowbit.data.network.ums.UpdateLostPasswordResponse
 import com.example.flowbit.databinding.ActivityFindPwd2Binding
 import com.example.flowbit.ui.register.Register3Activity
 import com.example.flowbit.ui.register.RegisterViewModel
@@ -161,12 +164,12 @@ class ForgotPassword2Activity : AppCompatActivity() {
         hashedPassword = hashPassword(newPassword)
 
         // 해시된 비밀번호를 API에 전달
-        val request = RegisterUserRequest(userEmail, hashedPassword, "test")
-        Log.d("Register2Activity", "$userEmail, $hashedPassword, test")
-        registerViewModel.registerUser(request)
+        val request = UpdateLostPasswordRequest(userEmail, hashedPassword)
+        Log.d("Register2Activity", "$userEmail, $hashedPassword")
+        registerViewModel.updateLostPassword(request)
 
         // 서버 응답을 감지하여 처리
-        registerViewModel.responseRegisterUserResponse.observe(this, Observer { response ->
+        registerViewModel.updateLostPasswordResponse.observe(this, Observer { response ->
             handleVerificationResponse(response)
 
 //            response.data?.let { data ->
@@ -190,25 +193,19 @@ class ForgotPassword2Activity : AppCompatActivity() {
     }
 
     // 서버 응답 처리
-    private fun handleVerificationResponse(response: RegisterUserResponse?) {
+    private fun handleVerificationResponse(response: UpdateLostPasswordResponse?) {
         if (response == null) {
             showErrorDialog("서버 응답이 없습니다. 다시 시도해주세요.")
             return
         }
 
         when (response.status) {
-            201 -> { // 성공
-                guid = response.data?.guid  // 서버에서 받은 guid 저장
-                username = response.data?.username // 서버에서 받은 username
-                Log.d("Register2Activity", "$guid")
-
+            201 -> { // 성공]
+                Log.d("ForgotPassword2Activity", "비밀번호 업데이트 성공")
                 // 다음 화면으로 이동
-                val intent = Intent(this, Register3Activity::class.java).apply {
+                val intent = Intent(this, LoginActivity::class.java).apply {
                     putExtra("email", userEmail)
                     putExtra("hashedPassword", hashedPassword)
-                    putExtra("app_instance_ID", "test")
-                    putExtra("guid", guid)
-                    putExtra("username", username)
                 }
                 startActivity(intent)
                 finish()
@@ -217,16 +214,15 @@ class ForgotPassword2Activity : AppCompatActivity() {
             400 -> showErrorAndReset("Null Exception Error")
             401 -> showErrorAndReset("파라미터 누락되었습니다.")
             402 -> showErrorAndReset("알 수 없는 에러가 발생했습니다.")
-            403 -> showErrorAndReset("해당 정보를 가지고 있는 사용자가 이미 있습니다.")
-            404 -> showErrorAndReset("정보 저장 시 에러가 발생했습니다.")
-            405 -> showErrorAndReset("탈퇴한 아이디로 로그인을 시도했습니다.")
+            403 -> showErrorAndReset("서버에 이메일 정보가 없을 경우")
+            404 -> showErrorAndReset("업데이트 중 문제 발생.")
             else -> showErrorAndReset("")
         }
     }
 
     // 에러 메시지 출력 후 UI 초기화
     private fun showErrorAndReset(message: String) {
-        Log.e("Register2Activity", "에러 발생: $message") // 로그 기록
+        Log.e("ForgotPassword2Activity", "에러 발생: $message") // 로그 기록
 //        val dialogView = layoutInflater.inflate(R.layout.dialog_custom, null)
 
         androidx.appcompat.app.AlertDialog.Builder(this)

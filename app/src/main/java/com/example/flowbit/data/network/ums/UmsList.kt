@@ -91,18 +91,6 @@ data class UpdateUsernameResponse(
     @SerializedName("msg") val msg: String
 )
 
-// 비밀번호 분실 후 업데이트 API (updateLostPassword)
-data class UpdateLostPasswordRequest(
-    val email_address: String,
-    val password_hash: String
-)
-
-data class UpdateLostPasswordResponse(
-    @SerializedName("success") val success: Int,
-    @SerializedName("status") val status: Int,
-    @SerializedName("msg") val msg: String
-)
-
 // 비밀번호 변경 API (updatePassword)
 data class UpdatePasswordRequest(
     val GUID: String,
@@ -166,6 +154,19 @@ data class ChangeUserMembershipRequest(
 )
 
 data class ChangeUserMembershipResponse(
+    @SerializedName("success") val success: Int,
+    @SerializedName("status") val status: Int,
+    @SerializedName("data") val data: Any?,
+    @SerializedName("msg") val msg: String
+)
+
+// 비밀번호 분실 후 업데이트 API (updateLostPassword)
+data class UpdateLostPasswordRequest(
+    val email_address: String,
+    val password_hash: String
+)
+
+data class UpdateLostPasswordResponse(
     @SerializedName("success") val success: Int,
     @SerializedName("status") val status: Int,
     @SerializedName("data") val data: Any?,

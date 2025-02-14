@@ -10,6 +10,8 @@ import com.example.flowbit.data.network.ums.ChangeUserMembershipRequest
 import com.example.flowbit.data.network.ums.ChangeUserMembershipResponse
 import com.example.flowbit.data.network.ums.RegisterUserRequest
 import com.example.flowbit.data.network.ums.RegisterUserResponse
+import com.example.flowbit.data.network.ums.UpdateLostPasswordRequest
+import com.example.flowbit.data.network.ums.UpdateLostPasswordResponse
 import com.example.flowbit.data.network.ums.VerifyUserEmailRequest
 import com.example.flowbit.data.network.ums.VerifyUserEmailResponse
 import com.example.flowbit.data.repository.RegisterRepository
@@ -70,5 +72,16 @@ class RegisterViewModel (val registerRepository: RegisterRepository): ViewModel(
             result = registerRepository.changeUserMembership(request)
         }
         _changeUserMembershipResponse.value = result
+    }
+
+    private var _updateLostPasswordResponse = MutableLiveData<UpdateLostPasswordResponse>()
+    val updateLostPasswordResponse = _updateLostPasswordResponse
+
+    fun updateLostPassword(request: UpdateLostPasswordRequest) = viewModelScope.launch {
+        var result : UpdateLostPasswordResponse
+        withContext(Dispatchers.IO) {
+            result = registerRepository.updateLostPassword(request)
+        }
+        _updateLostPasswordResponse.value = result
     }
 }
