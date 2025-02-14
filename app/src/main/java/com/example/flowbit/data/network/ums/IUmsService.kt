@@ -28,7 +28,7 @@ interface IUmsService {
     @POST("updateUsername")
     suspend fun updateUsername(@Body request: UpdateUsernameRequest): UpdateUsernameResponse
 
-    @POST("updateLostPassword")
+    @POST("updateLostPassword") // 로그인 전 비밀번호 찾기
     suspend fun updateLostPassword(@Body request: UpdateLostPasswordRequest): UpdateLostPasswordResponse
 
     @POST("updatePassword")
@@ -37,10 +37,10 @@ interface IUmsService {
     @POST("verifyUserEmailAddress")
     suspend fun verifyUserEmailAddress(@Body request: VerifyUserEmailRequest): VerifyUserEmailResponse
 
-    @POST("registerUser")
+    @POST("registerUser") // ID/Password 회원으로 회원가입. 유저 정보 저장 시 생성일/수정일 저장
     suspend fun registerUser(@Body request: RegisterUserRequest): RegisterUserResponse
 
-    @POST("changeUserMembership")
+    @POST("changeUserMembership") // 유저 회원가입 후 사용자에게 개인정보 내용 입력받아 서버 DB 업데이트를 위해 호출되는 API
     suspend fun changeUserMembership(@Body request: ChangeUserMembershipRequest): ChangeUserMembershipResponse
 
     @POST("getAllUMSNotice")
